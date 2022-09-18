@@ -1,5 +1,5 @@
 # GeoBlender
-A 3D demo of blender in civil/geotechnical/geological engineering refer to [Taichi Dem](https://github.com/taichi-dev/taichi_dem) repo.
+A 3D demo of blender in civil/geotechnical/geological engineering refer to [Taichi DEM](https://github.com/taichi-dev/taichi_dem) repo.
 
 <img src="./GeoBlender.gif" align=center />
 

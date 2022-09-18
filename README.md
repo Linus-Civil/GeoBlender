@@ -1,44 +1,33 @@
-# Taichi DEM
-A minimal DEM simulation demo written in Taichi.
+# GeoBlender
+A 3D demo of blender in civil/geotechnical/geological engineering refer to [Taichi Dem](https://github.com/taichi-dev/taichi_dem) repo.
 
-<img src="https://raw.githubusercontent.com/taichi-dev/public_files/master/taichi_dem/demo.gif" height="270px">
+<img src="./GeoBlender.gif" align=center />
 
-> To implement your own version, click the "Use this template" button on this page and simply modify the `dem.py` script.
-
-## Installation
-Make sure your `pip` is up-to-date:
-
+## Download & Installation dependency
 ```bash
-$ pip3 install pip --upgrade
+$ git clone git@github.com:Linus-Civil/GeoBlender.git
+$ cd GeoBlender
+$ pip3 install -r requirements.txt
 ```
 
-Assume you have a Python 3 environment, to install Taichi:
-
+## Run
 ```bash
-$ pip3 install -U taichi
+$ python3 GeoBlender.py
 ```
 
-To run the demo:
+## Theory
+- The `GeoBlender.py` simulates the movement and interaction of stressed assemblies of rigid {circular in 2D; spherical in 3D} particles using the Distinct-Element Method (DEM)<sup> [1]</sup>.
+- Parallel algorithm based on GPU for high performance neighbor search of particles<sup> [2]</sup>.
 
-```bash
-$ python dem.py
-```
+## To do list
+Compared with the original template repo, the contribution of this repo are mainly in two aspects:
+- 3D neighbor search of particles 
+- Description of complex geometric boundary  based on fixed particles
 
-## Assumptions
-The `dem.py` implements a minimal DEM solver with the following assumptions:
+This is a case built into the commercial discrete element software-PFC. Future improvements will focus on the following aspects to achieve the same results as PFC:
+- Implement of contact constitutive model which is more consistent with physics
+- Description of complex boundary  based on triangular meshes
 
-- All paricles are round circles with variable radius.
-- Only the normal force between particles is considered - the tangential force is not included.
-- The deformation of the particles is not included.
-- Ignore the angular momentum of the particle and only consider the translation of the particle.
-
-## Open missions
-There are plenty of room for hacking! We suggest a few of them for you to start with:
-- Reduce the neighborhood search region from the 3x3 grid cells to only 5 grid cells
-- Support more particle geometries
-- Implement angular momentum of the particles
-- Include tangential forces
-- ...
-
-## Show your work!
-We encourage you to continue developing on this repo and share your work with our community members. To notify us about your work, make sure you use this repo as a template.
+## Reference
+[1] Cundall, P. A. "A Computer Model for Simulating Progressive Large Scale Movements in Blocky Rock Systems," in Proceedings of the Symposium of the International Society of Rock Mechanics (Nancy, France, 1971), Vol. 1, Paper No. II-8 (1971).
+[2] https://zhuanlan.zhihu.com/p/563182093

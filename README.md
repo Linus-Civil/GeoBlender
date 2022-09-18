@@ -30,4 +30,5 @@ This is a case built into the commercial discrete element software-PFC. Future i
 
 ## Reference
 [1] Cundall, P. A. "A Computer Model for Simulating Progressive Large Scale Movements in Blocky Rock Systems," in Proceedings of the Symposium of the International Society of Rock Mechanics (Nancy, France, 1971), Vol. 1, Paper No. II-8 (1971).
+
 [2] https://zhuanlan.zhihu.com/p/563182093

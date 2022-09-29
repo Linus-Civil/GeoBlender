@@ -172,8 +172,6 @@ def contact(tbf: ti.template()):
         grid_idx = ti.floor((tbf[i].p+0.3)/grid_size, int)
         grain_count[grid_idx] += 1
     
-    # start 
-    # this is because memory mapping can be out of order
     column_sum.fill(0)
     for i, j, k in ti.ndrange(grid_n, grid_n, grid_n):        
         ti.atomic_add(column_sum[i, j], grain_count[i, j, k])
@@ -188,9 +186,9 @@ def contact(tbf: ti.template()):
         linear_idx = i * grid_n * grid_n + j * grid_n + k
         list_head[linear_idx] = pre
         list_cur[linear_idx] = list_head[linear_idx]
-        # only pre pointer is useable
+        # only pre pointer is useable 
         list_tail[linear_idx] = pre + grain_count[i, j, k]   
-    # end 
+
 
     for i in range(total_number):
         grid_idx = ti.floor((tbf[i].p + 0.3) / grid_size, int)
@@ -207,13 +205,21 @@ def contact(tbf: ti.template()):
         y_end = min(grid_idx[1] + 2, grid_n)
 
         z_begin = max(grid_idx[2] - 1,0)
-        z_end = min(grid_idx[2] + 2, grid_n)
+        z_end = min(grid_idx[2] + 1, grid_n)
 
         for neigh_i,neigh_j,neigh_k in ti.ndrange((x_begin,x_end),(y_begin,y_end),(z_begin,z_end)):
+            if neigh_j == grid_idx[1] + 1 and neigh_k == grid_idx[2]:
+                continue
+            if neigh_i == grid_idx[0] - 1 and neigh_j == grid_idx[1] and neigh_k == grid_idx[2]:
+                continue
+
             linear_idx = neigh_i*grid_n*grid_n + neigh_j*grid_n + neigh_k
             for p_location in range(list_head[linear_idx],list_tail[linear_idx]):
                 j = particle_id[p_location]
-                if i<j:
+                if neigh_i == grid_idx[0] and neigh_j == grid_idx[1] and neigh_k == grid_idx[2]:
+                    if i<j:
+                        resolve(i,j)
+                else:
                     resolve(i,j)
 
     for i in range(number):
@@ -236,7 +242,7 @@ def rotate():
         tot_bf[number+i] = fix_bf[i]
 
 # initial window, canvas, scene, camera
-window = ti.ui.Window("3D GeoDEM",(640,640),show_window=True)
+window = ti.ui.Window("3D GeoBlender",(640,640),show_window=True)
 canvas = window.get_canvas()
 scene = ti.ui.Scene()
 camera = ti.ui.Camera()

@@ -19,11 +19,14 @@ $ python3 GeoBlender.py
 - The `GeoBlender.py` simulates the movement and interaction of stressed assemblies of rigid {circular in 2D; spherical in 3D} particles using the Distinct-Element Method (DEM)<sup> [1]</sup>.
 - Parallel algorithm based on GPU for high performance neighbor search of particles<sup> [2]</sup>.
 
-## To do list
+## New Features
 Compared with the original template repo, the contribution of this repo are mainly in two aspects:
 - 3D neighbor search of particles 
 - Description of complex geometric boundary  based on fixed particles
+- Atomic operation for further parallelism (Contributed by [Zhu Zhe](https://github.com/mrzhuzhe))
+- The range of neighbor search is reduced from 27 to 14  in 3D
 
+## To do list
 This is a case built into the commercial discrete element software-PFC. Future improvements will focus on the following aspects to achieve the same results as PFC:
 - Implement of contact constitutive model which is more consistent with physics
 - Description of complex boundary  based on triangular meshes

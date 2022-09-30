@@ -172,6 +172,7 @@ def contact(tbf: ti.template()):
         grid_idx = ti.floor((tbf[i].p+0.3)/grid_size, int)
         grain_count[grid_idx] += 1
     
+    # Contributed by Zhu Zhe (start)
     column_sum.fill(0)
     for i, j, k in ti.ndrange(grid_n, grid_n, grid_n):        
         ti.atomic_add(column_sum[i, j], grain_count[i, j, k])
@@ -187,8 +188,8 @@ def contact(tbf: ti.template()):
         list_head[linear_idx] = pre
         list_cur[linear_idx] = list_head[linear_idx]
         # only pre pointer is useable 
-        list_tail[linear_idx] = pre + grain_count[i, j, k]   
-
+        list_tail[linear_idx] = pre + grain_count[i, j, k] 
+    # Contributed by Zhu Zhe (end)
 
     for i in range(total_number):
         grid_idx = ti.floor((tbf[i].p + 0.3) / grid_size, int)
